@@ -1,4 +1,4 @@
-package com.george.productSyncApp;
+package com.george.userService;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

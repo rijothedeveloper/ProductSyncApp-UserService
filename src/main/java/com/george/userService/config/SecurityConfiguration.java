@@ -1,6 +1,6 @@
-package com.george.productSyncApp.config;
+package com.george.userService.config;
 
-import com.george.productSyncApp.entities.Role;
+import com.george.userService.entities.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

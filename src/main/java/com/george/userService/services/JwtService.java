@@ -1,4 +1,4 @@
-package com.george.productSyncApp.services;
+package com.george.userService.services;
 
 import org.springframework.security.core.userdetails.UserDetails;
 

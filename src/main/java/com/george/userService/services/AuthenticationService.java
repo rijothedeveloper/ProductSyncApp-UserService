@@ -1,7 +1,6 @@
-package com.george.productSyncApp.services;
+package com.george.userService.services;
 
-import com.george.productSyncApp.dto.*;
-import com.george.productSyncApp.entities.User;
+import com.george.userService.dto.*;
 
 public interface AuthenticationService {
     SignupResponse signup(SignupRequest signupRequest);

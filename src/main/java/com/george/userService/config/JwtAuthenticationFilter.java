@@ -1,6 +1,6 @@
-package com.george.productSyncApp.config;
+package com.george.userService.config;
 
-import com.george.productSyncApp.services.JwtService;
+import com.george.userService.services.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

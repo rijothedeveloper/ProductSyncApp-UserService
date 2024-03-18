@@ -1,4 +1,4 @@
-package com.george.productSyncApp.dto;
+package com.george.userService.dto;
 
 import lombok.Data;
 

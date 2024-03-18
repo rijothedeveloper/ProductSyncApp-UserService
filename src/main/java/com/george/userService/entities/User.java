@@ -1,4 +1,4 @@
-package com.george.productSyncApp.entities;
+package com.george.userService.entities;
 
 import jakarta.persistence.*;
 

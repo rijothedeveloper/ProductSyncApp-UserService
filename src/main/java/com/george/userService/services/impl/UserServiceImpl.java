@@ -1,7 +1,7 @@
-package com.george.productSyncApp.services.impl;
+package com.george.userService.services.impl;
 
-import com.george.productSyncApp.repository.UserRepository;
-import com.george.productSyncApp.services.UserService;
+import com.george.userService.repository.UserRepository;
+import com.george.userService.services.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

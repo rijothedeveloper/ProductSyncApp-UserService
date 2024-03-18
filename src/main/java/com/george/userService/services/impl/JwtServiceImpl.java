@@ -1,6 +1,6 @@
-package com.george.productSyncApp.services.impl;
+package com.george.userService.services.impl;
 
-import com.george.productSyncApp.services.JwtService;
+import com.george.userService.services.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

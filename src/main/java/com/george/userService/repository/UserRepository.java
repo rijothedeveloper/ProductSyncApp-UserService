@@ -1,7 +1,7 @@
-package com.george.productSyncApp.repository;
+package com.george.userService.repository;
 
-import com.george.productSyncApp.entities.Role;
-import com.george.productSyncApp.entities.User;
+import com.george.userService.entities.Role;
+import com.george.userService.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

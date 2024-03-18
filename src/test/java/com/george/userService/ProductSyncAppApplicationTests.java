@@ -1,12 +1,11 @@
-package com.george.productSyncApp;
+package com.george.userService;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.george.productSyncApp.dto.SigninRequest;
-import com.george.productSyncApp.dto.SignupRequest;
-import com.george.productSyncApp.entities.Role;
-import com.george.productSyncApp.entities.User;
-import com.george.productSyncApp.repository.UserRepository;
+import com.george.userService.dto.SigninRequest;
+import com.george.userService.dto.SignupRequest;
+import com.george.userService.entities.Role;
+import com.george.userService.entities.User;
+import com.george.userService.repository.UserRepository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

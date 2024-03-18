@@ -1,13 +1,13 @@
-package com.george.productSyncApp.services.impl;
+package com.george.userService.services.impl;
 
-import com.george.productSyncApp.dto.*;
-import com.george.productSyncApp.entities.EmailVerificationToken;
-import com.george.productSyncApp.entities.Role;
-import com.george.productSyncApp.entities.User;
-import com.george.productSyncApp.repository.EmailVerificationTokenRepository;
-import com.george.productSyncApp.repository.UserRepository;
-import com.george.productSyncApp.services.AuthenticationService;
-import com.george.productSyncApp.services.JwtService;
+import com.george.userService.dto.*;
+import com.george.userService.entities.EmailVerificationToken;
+import com.george.userService.entities.Role;
+import com.george.userService.entities.User;
+import com.george.userService.repository.EmailVerificationTokenRepository;
+import com.george.userService.repository.UserRepository;
+import com.george.userService.services.AuthenticationService;
+import com.george.userService.services.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

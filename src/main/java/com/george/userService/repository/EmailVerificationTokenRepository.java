@@ -1,6 +1,6 @@
-package com.george.productSyncApp.repository;
+package com.george.userService.repository;
 
-import com.george.productSyncApp.entities.EmailVerificationToken;
+import com.george.userService.entities.EmailVerificationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
