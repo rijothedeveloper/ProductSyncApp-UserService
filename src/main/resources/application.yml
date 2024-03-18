@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: productSyncApp
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/authentication
+    username: root
+    password: zoozoo
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
