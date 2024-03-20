@@ -1,6 +1,7 @@
 package com.george.userService.services.impl;
 
 import com.george.userService.dto.*;
+import com.george.userService.dto.external.RegisterationEmailRequest;
 import com.george.userService.entities.EmailVerificationToken;
 import com.george.userService.entities.Role;
 import com.george.userService.entities.User;
@@ -8,22 +9,32 @@ import com.george.userService.repository.EmailVerificationTokenRepository;
 import com.george.userService.repository.UserRepository;
 import com.george.userService.services.AuthenticationService;
 import com.george.userService.services.JwtService;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.Date;
 import java.util.UUID;
 
-@Service
+import static org.springframework.web.reactive.function.BodyInserters.fromFormData;
 
+@Service
+@Data
+@RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final EmailVerificationTokenRepository emailVerificationTokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+//    private final WebClient webClient;
 
 
     @Override
@@ -95,15 +106,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private void sendVerificationEmail(User user) {
         EmailVerificationToken emailVerificationToken = generateEmailVerificationToken(user);
         emailVerificationTokenRepository.save(emailVerificationToken);
-        // TODO: 3/16/24
-    }
-
-    public AuthenticationServiceImpl(UserRepository userRepository, EmailVerificationTokenRepository emailVerificationTokenRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, JwtService jwtService) {
-        this.userRepository = userRepository;
-        this.emailVerificationTokenRepository = emailVerificationTokenRepository;
-        this.passwordEncoder = passwordEncoder;
-        this.authenticationManager = authenticationManager;
-        this.jwtService = jwtService;
+        RegisterationEmailRequest registerationEmailRequest = new RegisterationEmailRequest(user.getEmail(), emailVerificationToken.getToken());
+        // ipc to email service
+        WebClient webClient = WebClient.create();
+        Mono<String> emailMono = webClient.post()
+                .uri("http://localhost:8082/sendMail")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(Mono.just(registerationEmailRequest), RegisterationEmailRequest.class)
+                .retrieve()
+                .bodyToMono(String.class);
+        emailMono.subscribe(System.out::println);
     }
 
 
