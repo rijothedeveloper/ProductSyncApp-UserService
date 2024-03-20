@@ -12,6 +12,8 @@ import com.george.userService.services.JwtService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -112,10 +114,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Mono<String> emailMono = webClient.post()
                 .uri("http://localhost:8082/sendMail")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .body(Mono.just(registerationEmailRequest), RegisterationEmailRequest.class)
+                .bodyValue(registerationEmailRequest)
                 .retrieve()
                 .bodyToMono(String.class);
         emailMono.subscribe(System.out::println);
+
     }
 
 
