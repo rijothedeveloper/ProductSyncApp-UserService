@@ -15,6 +15,10 @@ public class AuthenticationController {
         this.authenticationService = authenticationService;
     }
 
+    @GetMapping("/status")
+    public String getStatus(){
+        return "Working";
+    }
     @GetMapping("/verify_user_email")
     public ResponseEntity<EmailVerificationResponse> veifyUserEmail(@RequestParam String token){
         return ResponseEntity.ok(authenticationService.verifyRegisterationEmail(token));
