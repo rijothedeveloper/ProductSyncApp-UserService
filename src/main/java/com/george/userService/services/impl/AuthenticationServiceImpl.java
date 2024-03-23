@@ -11,21 +11,15 @@ import com.george.userService.services.AuthenticationService;
 import com.george.userService.services.JwtService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-
+import org.springframework.web.client.RestClient;
 import java.util.Date;
 import java.util.UUID;
-
-import static org.springframework.web.reactive.function.BodyInserters.fromFormData;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Service
 @Data
@@ -110,14 +104,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         emailVerificationTokenRepository.save(emailVerificationToken);
         RegisterationEmailRequest registerationEmailRequest = new RegisterationEmailRequest(user.getEmail(), emailVerificationToken.getToken());
         // ipc to email service
-        WebClient webClient = WebClient.create();
-        Mono<String> emailMono = webClient.post()
-                .uri("http://localhost:8082/sendMail")
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .bodyValue(registerationEmailRequest)
+        RestClient restClient = RestClient.create();
+        ResponseEntity<Void> response = restClient.post()
+                .uri("http://localhost:8082/emailservice/sendMail")
+                .contentType(APPLICATION_JSON)
+                .body(registerationEmailRequest)
                 .retrieve()
-                .bodyToMono(String.class);
-        emailMono.subscribe(System.out::println);
+                .toBodilessEntity();
 
     }
 
