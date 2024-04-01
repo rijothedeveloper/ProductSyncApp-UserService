@@ -15,16 +15,23 @@ pool:
 
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Build jar
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build jar
     steps:
     - script: ./gradlew bootJar
-    # - task: Docker@2
-    #   displayName: Build an image
-    #   inputs:
-    #     command: build
-    #     dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-    #     tags: |
-    #       $(tag)
+    
+- stage: Dockerize
+  displayName: Build docker image
+  jobs:
+  - job: Build
+    displayName: Build docker image
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: |
+          $(tag)
