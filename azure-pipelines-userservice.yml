@@ -20,6 +20,23 @@ pool:
   name: 'azurecicdagent'
 
 stages:
+- stage: Jar
+  displayName: Build jar
+  jobs:
+  - job: Build
+    displayName: Build jar
+    steps:
+    - task: Gradle@2
+      inputs:
+        workingDirectory: ''
+        gradleWrapperFile: 'gradlew'
+        gradleOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'
+        publishJUnitResults: true
+        testResultsFiles: '**/TEST-*.xml'
+        tasks: 'build'
 - stage: Build
   displayName: Build stage
   jobs:
