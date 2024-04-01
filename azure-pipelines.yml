@@ -20,6 +20,9 @@ stages:
   - job: Build
     displayName: Build
     steps:
+    - task: CmdLine@2
+      inputs:
+        script: './gradlew bootJar'
     - task: Docker@2
       displayName: Build an image
       inputs:
