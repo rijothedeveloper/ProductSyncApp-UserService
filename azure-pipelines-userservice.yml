@@ -26,21 +26,11 @@ stages:
   - job: Build
     displayName: Build jar
     steps:
-    # - task: JavaToolInstaller@0
-    #   inputs:
-    #     versionSpec: '21'
-    #     jdkArchitectureOption: 'x64'
-    #     jdkSourceOption: 'PreInstalled'
-    - task: Gradle@2
+    - task: CmdLine@2
       inputs:
-        gradleWrapperFile: 'gradlew'
-        tasks: 'build'
-        # publishJUnitResults: false
-        # javaHomeOption: 'JDKVersion'
-        # jdkVersionOption: '1.17'
-        # gradleOptions: '-Xmx3072m'
-        # sonarQubeRunAnalysis: false
-        # spotBugsAnalysis: false
+        script: './gradlew bootjar'
+
+      
 - stage: Build
   displayName: Build stage
   jobs:
