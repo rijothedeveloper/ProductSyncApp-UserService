@@ -11,17 +11,23 @@ resources:
 variables:
   tag: '$(Build.BuildId)'
 pool:
-  name: azurecicdagent
+  name: localcicdagent
 
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Build jar
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build jar
     steps:
     - script: ./gradlew bootJar
-      
+    
+- stage: Dockerize
+  displayName: Build docker image
+  jobs:
+  - job: Build
+    displayName: Build docker image
+    steps:
     - task: Docker@2
       displayName: Build an image
       inputs:
