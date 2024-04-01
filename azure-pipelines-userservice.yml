@@ -33,15 +33,14 @@ stages:
     #     jdkSourceOption: 'PreInstalled'
     - task: Gradle@2
       inputs:
-        workingDirectory: ''
         gradleWrapperFile: 'gradlew'
-        gradleOptions: '-Xmx3072m'
-        javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '1.17'
-        jdkArchitectureOption: 'x64'
-        publishJUnitResults: true
-        testResultsFiles: '**/TEST-*.xml'
         tasks: 'build'
+        # publishJUnitResults: false
+        # javaHomeOption: 'JDKVersion'
+        # jdkVersionOption: '1.17'
+        # gradleOptions: '-Xmx3072m'
+        # sonarQubeRunAnalysis: false
+        # spotBugsAnalysis: false
 - stage: Build
   displayName: Build stage
   jobs:
