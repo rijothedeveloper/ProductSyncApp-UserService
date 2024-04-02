@@ -14,13 +14,6 @@ pool:
   name: localcicdagent
 
 stages:
-- stage: Build
-  displayName: Build jar
-  jobs:
-  - job: Build
-    displayName: Build jar
-    steps:
-    - script: ./gradlew bootJar
     
 - stage: Dockerize
   displayName: Build docker image
