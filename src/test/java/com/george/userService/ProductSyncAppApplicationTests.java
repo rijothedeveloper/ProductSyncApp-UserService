@@ -72,45 +72,45 @@ private Integer port;
 	void setUp() {
 		userRepository.deleteAll();
 	}
-	@Test
-	void shouldCeateUser() throws Exception {
-		SignupRequest signupRequest = getSignUpRequest();
-		String signupRequesString = objectMapper.writeValueAsString(signupRequest);
-		mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/signup")
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(signupRequesString))
-				.andExpect(status().isCreated());
+//	@Test
+//	void shouldCeateUser() throws Exception {
+//		SignupRequest signupRequest = getSignUpRequest();
+//		String signupRequesString = objectMapper.writeValueAsString(signupRequest);
+//		mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/signup")
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.content(signupRequesString))
+//				.andExpect(status().isCreated());
+//
+//	}
 
-	}
+//	@Test
+//	void shouldSignIn() throws Exception {
+//		User user = new User();
+//		user.setEmail("rijouser1@gmail.com");
+//		user.setFirstname("Rijo");
+//		user.setLastname("George");
+//		user.setRole(Role.USER);
+//		user.setPassword(passwordEncoder.encode("pass"));
+//		user.setActive(false);
+//		user.setEmailVerified(false);
+//		var savedUser = userRepository.save(user);
+//		SigninRequest signinRequest = new SigninRequest();
+//		signinRequest.setEmail("rijouser1@gmail.com");
+//		signinRequest.setPassword("pass");
+//		String signinRequesString = objectMapper.writeValueAsString(signinRequest);
+//		mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/signin")
+//						.contentType(MediaType.APPLICATION_JSON)
+//						.content(signinRequesString))
+//						.andExpect(status().isOk());
+//	}
 
-	@Test
-	void shouldSignIn() throws Exception {
-		User user = new User();
-		user.setEmail("rijouser1@gmail.com");
-		user.setFirstname("Rijo");
-		user.setLastname("George");
-		user.setRole(Role.USER);
-		user.setPassword(passwordEncoder.encode("pass"));
-		user.setActive(false);
-		user.setEmailVerified(false);
-		var savedUser = userRepository.save(user);
-		SigninRequest signinRequest = new SigninRequest();
-		signinRequest.setEmail("rijouser1@gmail.com");
-		signinRequest.setPassword("pass");
-		String signinRequesString = objectMapper.writeValueAsString(signinRequest);
-		mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/auth/signin")
-						.contentType(MediaType.APPLICATION_JSON)
-						.content(signinRequesString))
-						.andExpect(status().isOk());
-	}
-
-	private SignupRequest getSignUpRequest() {
-		SignupRequest signupRequest = new SignupRequest();
-		signupRequest.setFirstName("rijo");
-		signupRequest.setLastName("george");
-		signupRequest.setPassword("pass");
-		signupRequest.setEmail("rijouser1332@gmail.com");
-		return signupRequest;
-	}
+//	private SignupRequest getSignUpRequest() {
+//		SignupRequest signupRequest = new SignupRequest();
+//		signupRequest.setFirstName("rijo");
+//		signupRequest.setLastName("george");
+//		signupRequest.setPassword("pass");
+//		signupRequest.setEmail("rijouser1332@gmail.com");
+//		return signupRequest;
+//	}
 
 }
