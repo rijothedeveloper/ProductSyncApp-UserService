@@ -11,6 +11,7 @@ import com.george.userService.services.AuthenticationService;
 import com.george.userService.services.JwtService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +25,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @Service
 @Data
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserRepository userRepository;
     private final EmailVerificationTokenRepository emailVerificationTokenRepository;
@@ -105,12 +107,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         RegisterationEmailRequest registerationEmailRequest = new RegisterationEmailRequest(user.getEmail(), emailVerificationToken.getToken());
         // ipc to email service
         RestClient restClient = RestClient.create();
-        ResponseEntity<Void> response = restClient.post()
-                .uri("http://localhost:8082/emailservice/sendMail")
-                .contentType(APPLICATION_JSON)
-                .body(registerationEmailRequest)
-                .retrieve()
-                .toBodilessEntity();
+        try{
+            ResponseEntity<Void> response = restClient.post()
+                    .uri("http://localhost:8082/emailservice/sendMail")
+                    .contentType(APPLICATION_JSON)
+                    .body(registerationEmailRequest)
+                    .retrieve()
+                    .toBodilessEntity();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("cannot connect to email service");
+        }
+
 
     }
 

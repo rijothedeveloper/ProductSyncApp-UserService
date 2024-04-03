@@ -4,11 +4,11 @@ services:
   postgresdb:
     image: postgres
     restart: unless-stopped
-    env_file: .env
+    env_file: ./.env
     environment:
-      - POSTGRES_USER=$POSTGRESDB_USER
-      - POSTGRES_PASSWORD=$POSTGRESDB_ROOT_PASSWORD
-      - POSTGRES_DB=$POSTGRESDB_DATABASE
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=zoozoo
+      - POSTGRES_DB=authentication
     ports:
       - 5432:5432
     volumes:
@@ -16,18 +16,20 @@ services:
   app:
     depends_on:
       - postgresdb
-    build: .
+    build:
+      context: .
+
     restart: on-failure
-    env_file: .env
+    env_file: ./.env
     ports:
       - 8081:8081
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url"  : "jdbc:postgresql://postgresdb:$POSTGRESDB_DOCKER_PORT/$POSTGRESDB_DATABASE",
-        "spring.datasource.username" : "$POSTGRESDB_USER",
-        "spring.datasource.password" : "$POSTGRESDB_ROOT_PASSWORD",
+        "spring.datasource.url"  : "jdbc:postgresql://postgresdb:5432/authentication",
+        "spring.datasource.username" : "root",
+        "spring.datasource.password" : "zoozoo",
         "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
-        "spring.jpa.hibernate.ddl-auto" : "update"
+        "spring.jpa.hibernate.ddl-auto" : "create"
       }'
     volumes:
       - .m2:/root/.m2
