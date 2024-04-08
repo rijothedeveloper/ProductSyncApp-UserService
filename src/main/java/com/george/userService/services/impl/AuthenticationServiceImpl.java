@@ -19,6 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -36,9 +38,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 
     @Override
-    public SignupResponse signup(SignupRequest signupRequest) {
+    public FormResponse<String> signup(SignupRequest signupRequest) {
+        Map<String, String> errorMap = new HashMap<>();
         if(userRepository.findByEmail(signupRequest.getEmail()).isPresent()) {
-            return new SignupResponse(null, "email not available");
+            errorMap.put("email", "email already exists");
+            return new FormResponse<>(false,null, errorMap);
         }
         User user = new User();
         user.setEmail(signupRequest.getEmail());
@@ -50,12 +54,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setEmailVerified(false);
         var savedUser = userRepository.save(user);
         sendVerificationEmail(user);
-        return new SignupResponse(savedUser, null);
+        return new FormResponse<>(true,"User created successfully, please verify your email address", errorMap);
     }
 
     @Override
     public JwtAuthenticationResponse signin(SigninRequest signinRequest) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getEmail(), signinRequest.getPassword()));
+        try{
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getEmail(), signinRequest.getPassword()));
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return new JwtAuthenticationResponse(null, null, Map.of("error", "invalid email or password"));
+        }
         var user = userRepository.findByEmail(signinRequest.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("invalid email"));
         var jwt = jwtService.generateToken(user);
