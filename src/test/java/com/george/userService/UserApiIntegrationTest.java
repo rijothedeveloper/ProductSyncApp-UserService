@@ -25,7 +25,7 @@ import java.util.Date;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserApiIntegrationTest {
     @ServiceConnection //to override the application properties connection details
-     static PostgreSQLContainer postgres = new PostgreSQLContainer<>(DockerImageName.parse("postgres:9.6.12"))
+     static PostgreSQLContainer postgres = new PostgreSQLContainer<>(DockerImageName.parse("postgres:15"))
             .withUsername("testUser")
             .withPassword("testSecret")
             .withDatabaseName("testDatabase");
