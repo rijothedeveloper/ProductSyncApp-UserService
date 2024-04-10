@@ -24,7 +24,7 @@ public class AuthenticationController {
     @GetMapping("/status")
     @CrossOrigin
     public ResponseEntity<FormResponse<String>> getStatus(){
-        return ResponseEntity.ok(new FormResponse<String>(true, "working fine", null));
+        return ResponseEntity.ok(new FormResponse<String>(true, "working fine", new HashMap<>()));
     }
     @GetMapping("/verify_user_email")
     public ResponseEntity<EmailVerificationResponse> veifyUserEmail(@RequestParam String token){
