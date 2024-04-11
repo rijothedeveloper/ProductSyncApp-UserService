@@ -3,7 +3,7 @@ name: Gradle Build
 on:
   push:
     branches:
-      - dev
+      - feature_add_soarqube_to_githubactions
   pull_request:
 
 jobs:
