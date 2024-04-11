@@ -3,7 +3,7 @@ package com.george.userService.services;
 import com.george.userService.dto.*;
 
 public interface AuthenticationService {
-    SignupResponse signup(SignupRequest signupRequest);
+    FormResponse<String> signup(SignupRequest signupRequest);
     JwtAuthenticationResponse signin(SigninRequest signinRequest);
     JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
 
