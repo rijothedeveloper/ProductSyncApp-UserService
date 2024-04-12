@@ -5,6 +5,7 @@ import com.george.userService.dto.external.RegisterationEmailRequest;
 import com.george.userService.entities.EmailVerificationToken;
 import com.george.userService.entities.Role;
 import com.george.userService.entities.User;
+import com.george.userService.exception.EmailAlreadyExcistsException;
 import com.george.userService.repository.EmailVerificationTokenRepository;
 import com.george.userService.repository.UserRepository;
 import com.george.userService.services.AuthenticationService;
@@ -41,9 +42,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public FormResponse<String> signup(SignupRequest signupRequest) {
         Map<String, String> errorMap = new HashMap<>();
         if(userRepository.findByEmail(signupRequest.getEmail()).isPresent()) {
-            errorMap.put("email", "email already exists");
-            return new FormResponse<>(false,null, errorMap);
+//            errorMap.put("email", "email already exists");
+//            return new FormResponse<>(false,null, errorMap);
+            throw new EmailAlreadyExcistsException("email already exists");
         }
+
         User user = new User();
         user.setEmail(signupRequest.getEmail());
         user.setFirstname(signupRequest.getFirstName());
